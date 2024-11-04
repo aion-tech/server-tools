@@ -1,7 +1,7 @@
 # generated from manifests external_dependencies
 acme<2.0.0
 astor
-cryptography==2.6.1
+cryptography
 dataclasses
 dnspython
 josepy
