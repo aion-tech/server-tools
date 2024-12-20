@@ -53,6 +53,15 @@ class Base(models.AbstractModel):
             if field not in all_values:
                 all_values[field] = record_values.get(field, False)
 
+        if not self:
+            # Precomputed fields will be computed just before creation
+            # and should not be overwritten by changed values
+            all_values = {
+                field_name: all_values[field_name]
+                for field_name in all_values
+                if not self._fields[field_name].precompute
+            }
+
         new_values = {}
         for field in onchange_fields:
             onchange_values = self.onchange(all_values, field, onchange_specs)
